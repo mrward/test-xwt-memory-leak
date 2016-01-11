@@ -1,5 +1,5 @@
 ﻿//
-// ComboBoxDialog.cs
+// Program.cs
 //
 // Author:
 //       Matt Ward <matt.ward@xamarin.com>
@@ -25,47 +25,19 @@
 // THE SOFTWARE.
 //
 using System;
-using Xwt;
+using Gtk;
 
-namespace XwtMemoryLeakTest
+namespace GtkMemoryLeakTest
 {
-	public class ComboBoxDialog : Dialog
+	class MainClass
 	{
-		ComboBox comboBox;
-
-		public ComboBoxDialog()
+		public static void Main (string[] args)
 		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
-
-			var vbox = new VBox ();
-			Content = vbox;
-
-			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
-
-			AddItems ();
+			Application.Init ();
+			var win = new MainWindow();
+			win.Show ();
+			Application.Run ();
+			win.Destroy ();
 		}
-
-		public void AddItems ()
-		{
-			for (int i = 0; i < 10; ++i) {
-				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
-			}
-
-			comboBox.SelectedIndex = 0;
-		}
-
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
 	}
 }
-

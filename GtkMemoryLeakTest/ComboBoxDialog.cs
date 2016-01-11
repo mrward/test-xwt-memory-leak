@@ -25,47 +25,50 @@
 // THE SOFTWARE.
 //
 using System;
-using Xwt;
+using Gtk;
 
-namespace XwtMemoryLeakTest
+namespace GtkMemoryLeakTest
 {
 	public class ComboBoxDialog : Dialog
 	{
 		ComboBox comboBox;
+		ListStore listStore;
 
 		public ComboBoxDialog()
 		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
+			Title = "Gtk Combo Box Dialog";
+			WidthRequest = 500;
+			HeightRequest = 400;
 
 			var vbox = new VBox ();
-			Content = vbox;
+			this.VBox.PackStart (vbox);
 
 			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
+			vbox.PackStart (comboBox, false, false, 0);
+
+			listStore = new ListStore (typeof(string), typeof(ComboBoxItem));
+			comboBox.Model = listStore;
+
+			var cell = new CellRendererText ();
+			comboBox.PackStart (cell, true);
+			comboBox.AddAttribute (cell, "text", 0);
 
 			AddItems ();
+
+			Child.ShowAll ();
+
+			Show ();
 		}
 
 		public void AddItems ()
 		{
 			for (int i = 0; i < 10; ++i) {
 				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
+				listStore.AppendValues (i.ToString (), item);
 			}
 
-			comboBox.SelectedIndex = 0;
+			comboBox.Active = 0;
 		}
-
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
 	}
 }
 

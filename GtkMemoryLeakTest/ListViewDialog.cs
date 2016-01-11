@@ -1,5 +1,5 @@
 ﻿//
-// ComboBoxDialog.cs
+// ListViewDialog.cs
 //
 // Author:
 //       Matt Ward <matt.ward@xamarin.com>
@@ -25,47 +25,47 @@
 // THE SOFTWARE.
 //
 using System;
-using Xwt;
+using Gtk;
 
-namespace XwtMemoryLeakTest
+namespace GtkMemoryLeakTest
 {
-	public class ComboBoxDialog : Dialog
+	public class ListViewDialog : Dialog
 	{
-		ComboBox comboBox;
+		TreeView listView;
+		ListStore listStore;
+		CustomRenderer cellView;
 
-		public ComboBoxDialog()
+		public ListViewDialog ()
 		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
+			Title = "Gtk List View Box Dialog";
+			WidthRequest = 500;
+			HeightRequest = 400;
 
-			var vbox = new VBox ();
-			Content = vbox;
+			var vbox = new HBox ();
+			VBox.PackStart (vbox);
 
-			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
+			listView = new TreeView ();
+			listView.HeadersVisible = false;
+			vbox.PackStart (listView);
+
+			listStore = new ListStore (typeof(string));
+			listView.Model = listStore;
+
+			cellView = new CustomRenderer ();
+			var column = new TreeViewColumn ("test", cellView);
+			listView.AppendColumn (column);
 
 			AddItems ();
+
+			ShowAll ();
 		}
 
-		public void AddItems ()
+		void AddItems ()
 		{
 			for (int i = 0; i < 10; ++i) {
-				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
+				listStore.AppendValues (i.ToString ());
 			}
-
-			comboBox.SelectedIndex = 0;
 		}
-
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
 	}
 }
 

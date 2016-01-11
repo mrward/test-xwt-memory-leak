@@ -1,5 +1,5 @@
 ﻿//
-// ComboBoxDialog.cs
+// MainWindow.cs
 //
 // Author:
 //       Matt Ward <matt.ward@xamarin.com>
@@ -25,47 +25,51 @@
 // THE SOFTWARE.
 //
 using System;
-using Xwt;
+using Gtk;
 
-namespace XwtMemoryLeakTest
+namespace GtkMemoryLeakTest
 {
-	public class ComboBoxDialog : Dialog
+	public class MainWindow: Gtk.Window
 	{
-		ComboBox comboBox;
-
-		public ComboBoxDialog()
+		public MainWindow()
+			: base (Gtk.WindowType.Toplevel)
 		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
+			Title = "Gtk Test Application";
+			WidthRequest = 500;
+			HeightRequest = 400;
 
-			var vbox = new VBox ();
-			Content = vbox;
+			var box = new VBox ();
+			var comboBoxDialogButton = new Button ("Show Combo Box Dialog");
+			comboBoxDialogButton.Clicked += ComboBoxDialogButtonClicked;
+			box.PackStart (comboBoxDialogButton, false, false, 0);
 
-			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
+			var listViewDialogButton = new Button ("Show ListView Box Dialog");
+			listViewDialogButton.Clicked += ListViewDialogButtonClicked;
+			box.PackStart (listViewDialogButton, false, false, 0);
 
-			AddItems ();
+			Add (box);
+			ShowAll ();
 		}
 
-		public void AddItems ()
+		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 		{
-			for (int i = 0; i < 10; ++i) {
-				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
-			}
-
-			comboBox.SelectedIndex = 0;
+			Application.Quit ();
+			a.RetVal = true;
 		}
 
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
+		void ComboBoxDialogButtonClicked (object sender, EventArgs e)
+		{
+			var dialog = new ComboBoxDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
+
+		void ListViewDialogButtonClicked (object sender, EventArgs e)
+		{
+			var dialog = new ListViewDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
 	}
 }
 

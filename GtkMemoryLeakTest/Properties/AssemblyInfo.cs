@@ -1,5 +1,5 @@
 ﻿//
-// ComboBoxDialog.cs
+// AssemblyInfo.cs
 //
 // Author:
 //       Matt Ward <matt.ward@xamarin.com>
@@ -24,48 +24,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-using System;
-using Xwt;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-namespace XwtMemoryLeakTest
-{
-	public class ComboBoxDialog : Dialog
-	{
-		ComboBox comboBox;
+// Information about this assembly is defined by the following attributes.
+// Change them to the values specific to your project.
 
-		public ComboBoxDialog()
-		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
+[assembly: AssemblyTitle ("GtkMemoryLeakTest")]
+[assembly: AssemblyDescription ("")]
+[assembly: AssemblyConfiguration ("")]
+[assembly: AssemblyCompany ("")]
+[assembly: AssemblyProduct ("")]
+[assembly: AssemblyCopyright ("Xamarin Inc. (http://xamarin.com)")]
+[assembly: AssemblyTrademark ("")]
+[assembly: AssemblyCulture ("")]
 
-			var vbox = new VBox ();
-			Content = vbox;
+// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
+// The form "{Major}.{Minor}.*" will automatically update the build and revision,
+// and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
+[assembly: AssemblyVersion ("1.0.*")]
 
-			AddItems ();
-		}
+// The following attributes are used to specify the signing key for the assembly,
+// if desired. See the Mono documentation for more information about signing.
 
-		public void AddItems ()
-		{
-			for (int i = 0; i < 10; ++i) {
-				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
-			}
-
-			comboBox.SelectedIndex = 0;
-		}
-
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
-	}
-}
+//[assembly: AssemblyDelaySign(false)]
+//[assembly: AssemblyKeyFile("")]
 

@@ -1,5 +1,5 @@
 ﻿//
-// ComboBoxDialog.cs
+// CustomRenderer.cs
 //
 // Author:
 //       Matt Ward <matt.ward@xamarin.com>
@@ -25,47 +25,14 @@
 // THE SOFTWARE.
 //
 using System;
-using Xwt;
 
-namespace XwtMemoryLeakTest
+namespace GtkMemoryLeakTest
 {
-	public class ComboBoxDialog : Dialog
+	public class CustomRenderer : Gtk.CellRenderer
 	{
-		ComboBox comboBox;
-
-		public ComboBoxDialog()
+		public CustomRenderer()
 		{
-			Title = "Xwt Combo Box Dialog";
-			Width = 500;
-			Height = 400;
-
-			var vbox = new VBox ();
-			Content = vbox;
-
-			comboBox = new ComboBox ();
-			vbox.PackStart (comboBox, false, false);
-
-			AddItems ();
 		}
-
-		public void AddItems ()
-		{
-			for (int i = 0; i < 10; ++i) {
-				var item = new ComboBoxItem ();
-				comboBox.Items.Add (item, i.ToString ());
-			}
-
-			comboBox.SelectedIndex = 0;
-		}
-
-//		protected override void Dispose (bool disposing)
-//		{
-//			var store = comboBox.ItemsSource as ListStore;
-//			if (store != null)
-//				store.Dispose ();
-//			comboBox.ItemsSource = null;
-//			base.Dispose (disposing);
-//		}
 	}
 }
 
