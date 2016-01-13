@@ -30,9 +30,15 @@ namespace GtkMemoryLeakTest
 {
 	public class ComboBoxItem
 	{
+		static int id;
+
 		public ComboBoxItem()
 		{
+			++id;
+			Id = id;
 		}
+
+		public int Id { get; private set; }
 	}
 }
 
