@@ -47,6 +47,8 @@ namespace GtkMemoryLeakTest
 			listViewDialogButton.Clicked += ListViewDialogButtonClicked;
 			box.PackStart (listViewDialogButton, false, false, 0);
 
+			DeleteEvent += OnDeleteEvent;
+
 			Add (box);
 			ShowAll ();
 		}
