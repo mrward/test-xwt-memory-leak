@@ -47,6 +47,10 @@ namespace GtkMemoryLeakTest
 			listViewDialogButton.Clicked += ListViewDialogButtonClicked;
 			box.PackStart (listViewDialogButton, false, false, 0);
 
+			var sortFuncListViewDialogButton = new Button ("Show SortFunc ListView Box Dialog");
+			sortFuncListViewDialogButton.Clicked += SortFuncListViewDialogButtonClicked;
+			box.PackStart (sortFuncListViewDialogButton, false, false, 0);
+
 			DeleteEvent += OnDeleteEvent;
 
 			Add (box);
@@ -69,6 +73,13 @@ namespace GtkMemoryLeakTest
 		void ListViewDialogButtonClicked (object sender, EventArgs e)
 		{
 			var dialog = new ListViewDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
+
+		void SortFuncListViewDialogButtonClicked (object sender, EventArgs e)
+		{
+			var dialog = new SortFuncListViewDialog ();
 			dialog.Run ();
 			dialog.Destroy ();
 		}

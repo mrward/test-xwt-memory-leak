@@ -44,6 +44,7 @@
     <Compile Include="ListViewDialog.cs" />
     <Compile Include="ComboBoxItem.cs" />
     <Compile Include="CustomRenderer.cs" />
+    <Compile Include="SortFuncListViewDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
