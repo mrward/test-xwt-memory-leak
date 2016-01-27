@@ -51,6 +51,10 @@ namespace GtkMemoryLeakTest
 			sortFuncListViewDialogButton.Clicked += SortFuncListViewDialogButtonClicked;
 			box.PackStart (sortFuncListViewDialogButton, false, false, 0);
 
+			var scrolledWindowDialogButton = new Button ("Show ScrolledWindow Dialog");
+			scrolledWindowDialogButton.Clicked += ScrolledWindowDialogButtonClicked;
+			box.PackStart (scrolledWindowDialogButton, false, false, 0);
+
 			DeleteEvent += OnDeleteEvent;
 
 			Add (box);
@@ -80,6 +84,13 @@ namespace GtkMemoryLeakTest
 		void SortFuncListViewDialogButtonClicked (object sender, EventArgs e)
 		{
 			var dialog = new SortFuncListViewDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
+
+		void ScrolledWindowDialogButtonClicked (object sender, EventArgs e)
+		{
+			var dialog = new ScrolledWindowDialog ();
 			dialog.Run ();
 			dialog.Destroy ();
 		}
